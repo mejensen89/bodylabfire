@@ -1,0 +1,730 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.centeredOnScreen {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center 
+}
+
+.centered {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* BodyLab Text */
+
+.fullscreen{
+  font-color: white;
+  font-size: 50%;
+  font-family: sans-serif;
+}
+
+/* Basic layout 6 column grid system. */
+.sixWide {
+  width: 100%;
+  padding-left: 2em;
+  padding-right: 2em;
+  min-width: 600;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.fiveWide {
+  width: 83%;
+  padding-left: 2em;
+  padding-right: 2em;
+  min-width: 500px;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.fourWide {
+  width: 66.66666667%;
+  padding-left: 2em;
+  padding-right: 2em;
+  min-width: 400px;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.threeWide {
+  width: 50%;
+  padding-left: 2em;
+  padding-right: 2em;
+  min-width: 300px;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.twoWide {
+  width: 33.33333333%;
+  padding-left: 2em;
+  padding-right: 2em;
+  min-width: 200px;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.oneWide {
+  width: 16%;
+  padding-left: 2em;
+  padding-right: 2em;
+  min-width: 100px;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.row {
+  min-height: 100px;
+  max-height: auto;
+  display: inline-flex;
+  width: 100%;
+  display: flex;
+  flex-flow: row no-wrap;
+}
+
+.smallRow{
+   min-height: 25px;
+  max-height: auto;
+  display: inline-flex;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.headerRow {
+  max-height: 75px;
+  object-fit: cover;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-flow: row no-wrap;
+}
+
+.bottomRow{
+  position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 75px;
+}
+
+.wrapRow{
+  display: inline-flex;
+  flex-wrap: wrap;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.slideListEntry{
+  padding: 5px;
+  margin: 5px;
+  border: 3px solid black; 
+}
+
+.slideList{
+  padding: 2px;
+} 
+
+.workoutListEntry{
+  padding: 5px;
+  margin: 5px;
+  border: 3px solid black;
+}
+
+/*some rules for resizing divs within their containers:*/
+
+.hudnredWidth {
+  width: 100%;
+}
+
+.ninetyWidth {
+  width: 90%;
+}
+
+.eightyWidth {
+  width: 80%;
+}
+
+.seventyWidth {
+  width: 70%;
+}
+
+.sixtyWidth {
+  width: 60%;
+}
+
+.fiftyWidth {
+  width: 50%;
+}
+
+.fourtyWidth {
+  width: 40%;
+}
+
+.thirtyWidth {
+  width: 30%;
+}
+
+.twentyWidth {
+  width: 20%;
+}
+
+.tenWidth {
+  width: 10%;
+}
+
+.hundredHeight {
+  height: 100%;
+}
+
+.ninetyHeight {
+  height: 90%;
+}
+
+.eightyHeight {
+  height: 80%;
+}
+
+.seventyHeight {
+  height: 70%;
+}
+
+.sixtyHeight {
+  height: 60%;
+}
+
+.fiftyHeight {
+  height: 50%;
+}
+
+
+
+/*text alignment*/
+
+.txtC {
+  text-align: center;
+}
+.txtL {
+  text-align: left;
+}
+.txtR {
+  text-align: right;
+}
+.txtJ {
+  text-align: justify;
+}
+/*font families*/
+
+.fntSans {
+  font-family: Impact, Charcoal, sans-serif;
+}
+.FntSerif {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+/*font sizes*/
+
+.largeFont {
+  font-size: 2em;
+}
+.extraLargeFont {
+  font-size: 4em;
+}
+.smallFont {
+  font-size: 0.75em;
+}
+.xSmallFont {
+  font-size: 0.5em;
+}
+/*button rules: shapes, psuedos */
+
+.btnSquare {
+  border-radius: 0px;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 1rem;
+}
+.btnRounded {
+  border-radius: 12px;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 1rem;
+}
+.btnEllipse {
+  border-radius: 18px;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 1rem;
+}
+
+/*Outlines*/
+
+.blkOut {
+  border: 3px solid black;
+}
+.whtOut {
+  border: 3px solid white;
+}
+.AliceBlueOut {
+  border: 3px solid AliceBlue;
+}
+.AntiqueWhiteOut {
+  border: 3px solid AntiqueWhite;
+}
+.AquaOut {
+  border: 3px solid Aqua;
+}
+.AquamarineOut {
+  border: 3px solid Aquamarine;
+}
+.AzureOut {
+  border: 3px solid Azure;
+}
+.BeigeOut {
+  border: 3px solid Beige;
+}
+.BisqueOut {
+  border: 3px solid Bisque;
+}
+.BlackOut {
+  border: 3px solid Black;
+}
+.BlanchedAlmondOut {
+  border: 3px solid BlanchedAlmond;
+}
+.BlueOut {
+  border: 3px solid Blue;
+}
+.BlueVioletOut {
+  border: 3px solid BlueViolet;
+}
+.BrownOut {
+  border: 3px solid Brown;
+}
+.BurlyWoodOut {
+  border: 3px solid BurlyWood;
+}
+.CadetBlueOut {
+  border: 3px solid CadetBlue;
+}
+.ChartreuseOut {
+  border: 3px solid Chartreuse;
+}
+.ChocolateOut {
+  border: 3px solid Chocolate;
+}
+.CoralOut {
+  border: 3px solid Coral;
+}
+.CornflowerBlueOut {
+  border: 3px solid CornflowerBlue;
+}
+.CornsilkOut {
+  border: 3px solid Cornsilk;
+}
+.CrimsonOut {
+  border: 3px solid Crimson;
+}
+.CyanOut {
+  border: 3px solid Cyan;
+}
+.DarkBlueOut {
+  border: 3px solid DarkBlue;
+}
+.DarkCyanOut {
+  border: 3px solid DarkCyan;
+}
+.DarkGoldenRodOut {
+  border: 3px solid DarkGoldenRod;
+}
+.DarkGrayOut {
+  border: 3px solid DarkGray;
+}
+.DarkGreyOut {
+  border: 3px solid DarkGrey;
+}
+.DarkGreenOut {
+  border: 3px solid DarkGreen;
+}
+.DarkKhakiOut {
+  border: 3px solid DarkKhaki;
+}
+.DarkMagentaOut {
+  border: 3px solid DarkMagenta;
+}
+.DarkOliveGreenOut {
+  border: 3px solid DarkOliveGreen;
+}
+.DarkorangeOut {
+  border: 3px solid Darkorange;
+}
+.DarkOrchidOut {
+  border: 3px solid DarkOrchid;
+}
+.DarkRedOut {
+  border: 3px solid DarkRed;
+}
+.DarkSalmonOut {
+  border: 3px solid DarkSalmon;
+}
+.DarkSeaGreenOut {
+  border: 3px solid DarkSeaGreen;
+}
+.DarkSlateBlueOut {
+  border: 3px solid DarkSlateBlue;
+}
+.DarkSlateGrayOut {
+  border: 3px solid DarkSlateGray;
+}
+.DarkSlateGreyOut {
+  border: 3px solid DarkSlateGrey;
+}
+.DarkTurquoiseOut {
+  border: 3px solid DarkTurquoise;
+}
+.DarkVioletOut {
+  border: 3px solid DarkViolet;
+}
+.DeepPinkOut {
+  border: 3px solid DeepPink;
+}
+.DeepSkyBlueOut {
+  border: 3px solid DeepSkyBlue;
+}
+.DimGrayOut {
+  border: 3px solid DimGray;
+}
+.DimGreyOut {
+  border: 3px solid DimGrey;
+}
+.DodgerBlueOut {
+  border: 3px solid DodgerBlue;
+}
+.FireBrickOut {
+  border: 3px solid FireBrick;
+}
+.FloralWhiteOut {
+  border: 3px solid FloralWhite;
+}
+.ForestGreenOut {
+  border: 3px solid ForestGreen;
+}
+.FuchsiaOut {
+  border: 3px solid Fuchsia;
+}
+.GainsboroOut {
+  border: 3px solid Gainsboro;
+}
+.GhostWhiteOut {
+  border: 3px solid GhostWhite;
+}
+.GoldOut {
+  border: 3px solid Gold;
+}
+.GoldenRodOut {
+  border: 3px solid GoldenRod;
+}
+.GrayOut {
+  border: 3px solid Gray;
+}
+.GreyOut {
+  border: 3px solid Grey;
+}
+.GreenOut {
+  border: 3px solid Green;
+}
+.GreenYellowOut {
+  border: 3px solid GreenYellow;
+}
+.HoneyDewOut {
+  border: 3px solid HoneyDew;
+}
+.HotPinkOut {
+  border: 3px solid HotPink;
+}
+.IndianRedOut {
+  border: 3px solid IndianRed;
+}
+.IndigoOut {
+  border: 3px solid Indigo;
+}
+.IvoryOut {
+  border: 3px solid Ivory;
+}
+.KhakiOut {
+  border: 3px solid Khaki;
+}
+.LavenderOut {
+  border: 3px solid Lavender;
+}
+.LavenderBlushOut {
+  border: 3px solid LavenderBlush;
+}
+.LawnGreenOut {
+  border: 3px solid LawnGreen;
+}
+.LemonChiffonOut {
+  border: 3px solid LemonChiffon;
+}
+.LightBlueOut {
+  border: 3px solid LightBlue;
+}
+.LightCoralOut {
+  border: 3px solid LightCoral;
+}
+.LightCyanOut {
+  border: 3px solid LightCyan;
+}
+.LightGoldenRodYellowOut {
+  border: 3px solid LightGoldenRodYellow;
+}
+.LightGrayOut {
+  border: 3px solid LightGray;
+}
+.LightGreyOut {
+  border: 3px solid LightGrey;
+}
+.LightGreenOut {
+  border: 3px solid LightGreen;
+}
+.LightPinkOut {
+  border: 3px solid LightPink;
+}
+.LightSalmonOut {
+  border: 3px solid LightSalmon;
+}
+.LightSeaGreenOut {
+  border: 3px solid LightSeaGreen;
+}
+.LightSkyBlueOut {
+  border: 3px solid LightSkyBlue;
+}
+.LightSlateGrayOut {
+  border: 3px solid LightSlateGray;
+}
+.LightSlateGreyOut {
+  border: 3px solid LightSlateGrey;
+}
+.LightSteelBlueOut {
+  border: 3px solid LightSteelBlue;
+}
+.LightYellowOut {
+  border: 3px solid LightYellow;
+}
+.LimeOut {
+  border: 3px solid Lime;
+}
+.LimeGreenOut {
+  border: 3px solid LimeGreen;
+}
+.LinenOut {
+  border: 3px solid Linen;
+}
+.MagentaOut {
+  border: 3px solid Magenta;
+}
+.MaroonOut {
+  border: 3px solid Maroon;
+}
+.MediumAquaMarineOut {
+  border: 3px solid MediumAquaMarine;
+}
+.MediumBlueOut {
+  border: 3px solid MediumBlue;
+}
+.MediumOrchidOut {
+  border: 3px solid MediumOrchid;
+}
+.MediumPurpleOut {
+  border: 3px solid MediumPurple;
+}
+.MediumSeaGreenOut {
+  border: 3px solid MediumSeaGreen;
+}
+.MediumSlateBlueOut {
+  border: 3px solid MediumSlateBlue;
+}
+.MediumSpringGreenOut {
+  border: 3px solid MediumSpringGreen;
+}
+.MediumTurquoiseOut {
+  border: 3px solid MediumTurquoise;
+}
+.MediumVioletRedOut {
+  border: 3px solid MediumVioletRed;
+}
+.MidnightBlueOut {
+  border: 3px solid MidnightBlue;
+}
+.MintCreamOut {
+  border: 3px solid MintCream;
+}
+.MistyRoseOut {
+  border: 3px solid MistyRose;
+}
+.MoccasinOut {
+  border: 3px solid Moccasin;
+}
+.NavajoWhiteOut {
+  border: 3px solid NavajoWhite;
+}
+.NavyOut {
+  border: 3px solid Navy;
+}
+.OldLaceOut {
+  border: 3px solid OldLace;
+}
+.OliveOut {
+  border: 3px solid Olive;
+}
+.OliveDrabOut {
+  border: 3px solid OliveDrab;
+}
+.OrangeOut {
+  border: 3px solid Orange;
+}
+.OrangeRedOut {
+  border: 3px solid OrangeRed;
+}
+.OrchidOut {
+  border: 3px solid Orchid;
+}
+.PaleGoldenRodOut {
+  border: 3px solid PaleGoldenRod;
+}
+.PaleGreenOut {
+  border: 3px solid PaleGreen;
+}
+.PaleTurquoiseOut {
+  border: 3px solid PaleTurquoise;
+}
+.PaleVioletRedOut {
+  border: 3px solid PaleVioletRed;
+}
+.PapayaWhipOut {
+  border: 3px solid PapayaWhip;
+}
+.PeachPuffOut {
+  border: 3px solid PeachPuff;
+}
+.PeruOut {
+  border: 3px solid Peru;
+}
+.PinkOut {
+  border: 3px solid Pink;
+}
+.PlumOut {
+  border: 3px solid Plum;
+}
+.PowderBlueOut {
+  border: 3px solid PowderBlue;
+}
+.PurpleOut {
+  border: 3px solid Purple;
+}
+.RedOut {
+  border: 3px solid Red;
+}
+.RosyBrownOut {
+  border: 3px solid RosyBrown;
+}
+.RoyalBlueOut {
+  border: 3px solid RoyalBlue;
+}
+.SaddleBrownOut {
+  border: 3px solid SaddleBrown;
+}
+.SalmonOut {
+  border: 3px solid Salmon;
+}
+.SandyBrownOut {
+  border: 3px solid SandyBrown;
+}
+.SeaGreenOut {
+  border: 3px solid SeaGreen;
+}
+.SeaShellOut {
+  border: 3px solid SeaShell;
+}
+.SiennaOut {
+  border: 3px solid Sienna;
+}
+.SilverOut {
+  border: 3px solid Silver;
+}
+.SkyBlueOut {
+  border: 3px solid SkyBlue;
+}
+.SlateBlueOut {
+  border: 3px solid SlateBlue;
+}
+.SlateGrayOut {
+  border: 3px solid SlateGray;
+}
+.SlateGreyOut {
+  border: 3px solid SlateGrey;
+}
+.SnowOut {
+  border: 3px solid Snow;
+}
+.SpringGreenOut {
+  border: 3px solid SpringGreen;
+}
+.SteelBlueOut {
+  border: 3px solid SteelBlue;
+}
+.TanOut {
+  border: 3px solid Tan;
+}
+.TealOut {
+  border: 3px solid Teal;
+}
+.ThistleOut {
+  border: 3px solid Thistle;
+}
+.TomatoOut {
+  border: 3px solid Tomato;
+}
+.TurquoiseOut {
+  border: 3px solid Turquoise;
+}
+.VioletOut {
+  border: 3px solid Violet;
+}
+.WheatOut {
+  border: 3px solid Wheat;
+}
+.WhiteOut {
+  border: 3px solid White;
+}
+.WhiteSmokeOut {
+  border: 3px solid WhiteSmoke;
+}
+.YellowOut {
+  border: 3px solid Yellow;
+}
+.YellowGreenOut{
+  border: 3px solid YellowGreen;
+}
