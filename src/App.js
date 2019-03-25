@@ -27,6 +27,7 @@ class App extends Component {
     }
     this.SlidesRef = firebase.database().ref('Slides');
     this.createSlide = this.createSlide.bind(this);
+    this.setCurrentWorkout = this.setCurrentWorkout.bind(this);
   }
 
   componentDidMount(){
@@ -37,13 +38,14 @@ class App extends Component {
       console.log("slide List populated");
     });
     this.SlidesRef.on('child_removed', snapshot =>{
-      this.setState({slide: this.state.slideList.filter(slide => slide.key !== snapshot.key)})
+      this.setState({slideList: this.state.slideList.filter(slide => slide.key !== snapshot.key)})
     });
   }
 
   slidesToWorkout(slideID){
     this.setState({ queue: [...this.state.queue, slideID]});
   }
+
   createSlide(newSlide){
     this.SlidesRef.push({
       minutes: this.state.minutes,
@@ -70,6 +72,10 @@ class App extends Component {
     this.SlidesRef.child(slide.key).remove();
   }
 
+  setCurrentWorkout(workout){
+    this.setState({currentWorkout: workout})
+  }  
+
   render() {
     return (
       <div className="App">
@@ -78,6 +84,7 @@ class App extends Component {
             firebase={firebase}
             slideQueue = {this.state.queue}
             slideList = {this.state.slideList}
+            currentWorkout = {this.state.currentWorkout}
           />
         </div>
         <div className="row">
@@ -88,10 +95,11 @@ class App extends Component {
               slideList = {this.state.slideList}
             />
           </div>
-          <div>
+          <div className = "threeWide">
             <WorkoutList
               firebase = {firebase}
               slideQueue = {this.state.queue}
+              setCurrentWorkout = {this.setCurrentWorkout}
             />
           </div>
         </div>

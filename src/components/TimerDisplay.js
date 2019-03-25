@@ -14,22 +14,32 @@ class TimerDisplay extends Component {
 			title: '',
 			id: '',
 			color: '',
-			lastPlayed: this.props.firebase.database.ServerValue.TIMESTAMP,
 			isRunning: false,
 			formattedTime: '--:--',
 			isFull: false,
-			queuePlayer: [],
+			lastSlide: -1,
+			currentSlide: 0,
+			nextSlide: 1,
 		}
 		this.SlidesRef = this.props.firebase.database().ref('Slides');
 	}
 
 	componentDidMount(){
 		console.log("Here is the Timer Display");
+		this.setState({currentWorkout: this.props.currentWorkout});
 	}	
+
+	componentDidUpdate(){
+		console.log("TimerDisplay updated");
+	}
 
 	catchMinutes (e){
 		console.log("things are happening!!!");
 		this.setState({ minutes: e.target.value });
+	}
+
+	componentDidUpdate(){
+		console.log("TimerDisplay Updated");
 	}
 
 	catchSeconds(e){
@@ -85,6 +95,16 @@ class TimerDisplay extends Component {
 		this.setState({ isFull: true });
 	}
 
+	getSlides(workout){
+		let currentWorkout = this.state.currentWorkout;
+		let currentSlide = 0;
+		let lastSlide;
+		let nextSlide = 1;
+		if (this.state.minutes === 0 && this.state.seconds === 0){
+
+		}
+	}
+
 
 	format(){
 		console.log("formatter called");
@@ -100,19 +120,6 @@ class TimerDisplay extends Component {
 			this.setState({formattedTime: "--:--"});
 		}
 	}
-
-	getPlayList(){
-		//needs to call next slide when tick hits 0.
-		//NextS. will be passed in as prop from app.
-
-	}
-
-	/*queuePlayer(slide){
-		let SQ = this.props.slideQueue;
-		for (var i=0; i<SQ.length; i++) {
-			this.setState( queuePlayer: [...this.state.queuePlayer, this.props.slideList.filter(slide => slide.key === SQ[i]);)
-		}
-	}*/
 
 
 	render(){
@@ -141,13 +148,7 @@ class TimerDisplay extends Component {
 					<button> Delete </button>
 					<p> "TODO: add player controls"</p>
 				</div>
-				<div>
-					<p> Slide Queue: {this.props.slideQueue.map((ID, index)=>
-					 <p key = {index}> {ID} </p>
-					)}
-				</p>
-				<button onClick={(e)=>this.queuePlayer()}> Get IDs </button>
-				</div>
+				
 			</div>
 		)
 	}

@@ -11,18 +11,42 @@ class SlideList extends Component {
 			id: 0,
 			color: '',
 			lastPlayed: this.props.firebase.database.ServerValue.TIMESTAMP,
-			queue: []
+			queue: [], 
+			slideList: [],
 		}
+		this.SlidesRef = this.props.firebase.database().ref('Slides');
+		this.createSlide = this.createSlide.bind(this);
 	}
 
 	componentDidMount(){
-		
+		console.log("Slide List Loaded");
+		this.SlidesRef.on('child_added', snapshot =>{
+	      const slides = snapshot.val();
+	      slides.key = snapshot.key
+	      this.setState({ slideList: this.state.slideList.concat(slides)});
+	      console.log("slide List populated");
+	    });
+	    this.SlidesRef.on('child_removed', snapshot =>{
+	      this.setState({slideList: this.state.slideList.filter(slide => slide.key !== snapshot.key)})
+	    });
 	}
 
 	componentDidUpdate(){
-		console.log("Times they are a changing");
+		console.log("Slide List updated");
 	}
 
+	createSlide(newSlide){
+		this.SlidesRef.push({
+			title: this.state.title,
+			minutes: this.state.minutes,
+			seconds: this.state.seconds,
+			color: this.state.color, 
+			id: this.state.id,
+			lastPlayed: this.state.lastPlayed, 
+		});
+		this.setState({ newSlide: ''});
+		alert("Slide Sumbitted");
+	}
 	
 
 	catchTitle(e){
@@ -46,6 +70,11 @@ class SlideList extends Component {
 		this.props.addToWorkout(e.target.innerText);
 	}
 
+	removeSlide(slide){
+		this.SlidesRef.child(slide.key).remove();
+	}
+
+
 
 
 	render(){
@@ -54,7 +83,7 @@ class SlideList extends Component {
 				<h2> Make New Slide </h2>
 				<div className=" row">
 					
-					<form onSubmit = {(e)=> {e.preventDefault(); this.createSlide(this.state.newSlide); this.updateId(e)}} >
+					<form onSubmit = {(e)=> {e.preventDefault(); this.createSlide(this.state.newSlide)}} >
 						<formRow className = "smallRow">					
 						<legend>Title: </legend>
 						<input type = "text" onChange={(e)=> this.catchTitle(e)}/>
