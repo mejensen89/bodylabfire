@@ -20,6 +20,8 @@ class TimerDisplay extends Component {
 			lastSlide: -1,
 			currentSlide: 0,
 			nextSlide: 1,
+			playList: [],
+			played: false,
 		}
 		this.SlidesRef = this.props.firebase.database().ref('Slides');
 	}
@@ -29,8 +31,11 @@ class TimerDisplay extends Component {
 		this.setState({currentWorkout: this.props.currentWorkout});
 	}	
 
-	componentDidUpdate(){
-		console.log("TimerDisplay updated");
+	componentDidUpdate(prevProps) {
+	  /*if(prevProps.currentWorkout!==this.props.currentWorkout){
+	    //Perform some operation here
+	    this.setState({playList: this.props.currentWorkout});
+	  }*/
 	}
 
 	catchMinutes (e){
@@ -95,15 +100,60 @@ class TimerDisplay extends Component {
 		this.setState({ isFull: true });
 	}
 
-	getSlides(workout){
-		let currentWorkout = this.state.currentWorkout;
-		let currentSlide = 0;
-		let lastSlide;
-		let nextSlide = 1;
-		if (this.state.minutes === 0 && this.state.seconds === 0){
+	startWorkout(e){
+		this.setState({isRunning: !this.state.isRunning});
+		for (var j = 0; j< this.props.currentWorkout.slides.length; j++){
+			for (var x = 0; x <this.props.slideList.length; x++){
+				if (this.props.currentWorkout.slides[j] === this.props.slideList[x].key){
+					this.state.playList.push(this.props.slideList[x]);
+					this.setState({
+						title: this.props.slideList[x].title,
+						color: this.props.slideList[x].color,
+						minutes: this.props.slideList[x].minutes,
+						seconds: this.props.slideList[x].seconds,
+					});										
+				}
+			}
+		}
+		if (this.state.isRunning === true){
+			var oldMin = parseInt(this.state.minutes*60);
+			var oldSec = parseInt(this.state.seconds);
+			var totalSec = parseInt(oldMin)+parseInt(oldSec);
+			var tock = setInterval(()=>{
+				this.format();
+				var newMin = parseInt(totalSec/60);
+				var newSec= totalSec%60;
+				this.setState({
+					minutes: newMin,
+					seconds: newSec,
+				});
+			if (totalSec >0 && this.state.played === false && this.state.nextSlide <= this.state.playList.length){
+				let newTotal = totalSec-1
+				totalSec = totalSec-1
+			} else if (totalSec === 0 && this.state.played === false && this.state.nextSlide <= this.state.playList.length){
+				totalSec = totalSec-1;
+				this.setState({played: true})
+			} else if (this.state.nextSlide > this.state.playList.length){
+				clearInterval(tock);
+				return;
+			}else if (this.state.played === true && this.state.nextSlide <= this.state.playList.length){
+				let newNext = this.state.nextSlide+1
+				this.setState({
+					currentSlide: this.state.nextSlide,
+					lastSlide: this.state.currentSlide,
+					nextSlide: newNext,
+					title: this.state.playList[this.state.nextSlide].title,
+					color: this.state.playList[this.state.nextSlide].color,
+					minutes: this.state.playList[this.state.nextSlide].minutes,
+					seconds: this.state.playList[this.state.nextSlide].minutes,
+				});
+			}
+			}, 1000)
+		} else if (this.state.isRunning === false){
 
 		}
 	}
+	
 
 
 	format(){
@@ -147,6 +197,7 @@ class TimerDisplay extends Component {
 					
 					<button> Delete </button>
 					<p> "TODO: add player controls"</p>
+					<button onClick={(e)=>this.startWorkout()}> Start </button>
 				</div>
 				
 			</div>
