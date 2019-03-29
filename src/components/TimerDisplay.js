@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Fullscreen from "react-full-screen";
-import * as firebase from 'firebase';
 
 
 class TimerDisplay extends Component {
@@ -21,7 +20,6 @@ class TimerDisplay extends Component {
 			currentSlide: 0,
 			nextSlide: 1,
 			playList: [],
-			played: false,
 		}
 		this.SlidesRef = this.props.firebase.database().ref('Slides');
 	}
@@ -31,20 +29,20 @@ class TimerDisplay extends Component {
 		this.setState({currentWorkout: this.props.currentWorkout});
 	}	
 
-	componentDidUpdate(prevProps) {
-	  /*if(prevProps.currentWorkout!==this.props.currentWorkout){
-	    //Perform some operation here
-	    this.setState({playList: this.props.currentWorkout});
-	  }*/
+	componentDidUpdate(prevProps, prevState) {
+		console.log("TimerDisplay Updated");
+	  if(prevState.minutes !==this.state.minutes || prevState.seconds !== this.state.seconds){
+	  	this.format();
+	    this.setState({
+			minutes: this.state.minutes,
+			seconds: this.state.seconds,
+	    })
+	  }
 	}
 
 	catchMinutes (e){
 		console.log("things are happening!!!");
 		this.setState({ minutes: e.target.value });
-	}
-
-	componentDidUpdate(){
-		console.log("TimerDisplay Updated");
 	}
 
 	catchSeconds(e){
@@ -100,61 +98,108 @@ class TimerDisplay extends Component {
 		this.setState({ isFull: true });
 	}
 
+	callNextSlide(){
+		
+	}	
+
 	startWorkout(e){
 		this.setState({isRunning: !this.state.isRunning});
-		for (var j = 0; j< this.props.currentWorkout.slides.length; j++){
-			for (var x = 0; x <this.props.slideList.length; x++){
-				if (this.props.currentWorkout.slides[j] === this.props.slideList[x].key){
-					this.state.playList.push(this.props.slideList[x]);
-					this.setState({
-						title: this.props.slideList[x].title,
-						color: this.props.slideList[x].color,
-						minutes: this.props.slideList[x].minutes,
-						seconds: this.props.slideList[x].seconds,
-					});										
-				}
-			}
-		}
-		if (this.state.isRunning === true){
-			var oldMin = parseInt(this.state.minutes*60);
+		var oldMin = parseInt(this.state.minutes*60);
 			var oldSec = parseInt(this.state.seconds);
 			var totalSec = parseInt(oldMin)+parseInt(oldSec);
+		if (this.props.currentWorkout.slides === undefined){
+			alert("We're glad you're ready to start your workout. Would you please load the workout you'd like to do first?");
+		} else if (this.props.currentWorkout.slides !== undefined){
+			this.format();
+			
 			var tock = setInterval(()=>{
+				
 				this.format();
+				console.log(totalSec, oldMin, oldSec);
 				var newMin = parseInt(totalSec/60);
 				var newSec= totalSec%60;
 				this.setState({
 					minutes: newMin,
 					seconds: newSec,
 				});
-			if (totalSec >0 && this.state.played === false && this.state.nextSlide <= this.state.playList.length){
-				let newTotal = totalSec-1
-				totalSec = totalSec-1
-			} else if (totalSec === 0 && this.state.played === false && this.state.nextSlide <= this.state.playList.length){
-				totalSec = totalSec-1;
-				this.setState({played: true})
-			} else if (this.state.nextSlide > this.state.playList.length){
-				clearInterval(tock);
-				return;
-			}else if (this.state.played === true && this.state.nextSlide <= this.state.playList.length){
-				let newNext = this.state.nextSlide+1
-				this.setState({
-					currentSlide: this.state.nextSlide,
-					lastSlide: this.state.currentSlide,
-					nextSlide: newNext,
-					title: this.state.playList[this.state.nextSlide].title,
-					color: this.state.playList[this.state.nextSlide].color,
-					minutes: this.state.playList[this.state.nextSlide].minutes,
-					seconds: this.state.playList[this.state.nextSlide].minutes,
-				});
-			}
-			}, 1000)
-		} else if (this.state.isRunning === false){
+				if (this.state.playList.length > this.props.currentWorkout.slides.length){
+					clearInterval(tock);
+					alert("Something went wrong. There are more zones loaded than are in this workout. Please tell the front desk (reference line 128)");
+					return
+				} else if (this.state.playList.length <= this.props.currentWorkout.slides.length){
+					if (this.state.isRunning === true){
+						if (this.state.playList.length ===0){
+							this.setState({
+								title: "Loading...",
+								formattedTime: "This is gonna be good",
+							})							
+							for (var j = 0; j< this.props.currentWorkout.slides.length; j++){
+								for (var x = 0; x <this.props.slideList.length; x++){
+									if (this.props.currentWorkout.slides[j] === this.props.slideList[x].key && this.state.playList.length <= this.props.currentWorkout.slides.length){
+										this.state.playList.push(this.props.slideList[x]);
+										if(this.state.playList.length === 0){
+											this.setState({
+												title: this.props.slideList[x].title,
+												color: this.props.slideList[x].color,
+												minutes: this.props.slideList[x].minutes,
+												seconds: this.props.slideList[x].seconds,
+												//totalSec: parseInt(parseInt(this.state.playList[0]*60)+this.state.playList[0].seconds)
+											})
+											console.log("playlist loaded from slideList");
+											oldMin = this.props.slideList[x].minutes;
+											oldSec = this.props.slideList[x].seconds;
+											totalSec = parseInt(this.props.slideList[x].minutes)+parseInt(this.props.slideList[x].seconds)
+										}																			
+									}
+								}
+							}
+						}else if (this.state.playList.length >0){
+							let c = this.state.currentSlide;
+							let n = this.state.currentSlide+1;
+							let pl = this.state.playList;
+							if (this.state.nextSlide<= this.state.playList.length){
+								if (totalSec >=0){
+									totalSec = totalSec-1;
+								} else if (totalSec < 0){
 
+									this.setState({
+										title: pl[c].title,
+										color: pl[c].color,
+										minutes: pl[c].minutes,
+										seconds: pl[c].seconds,
+										lastSlide: this.state.lastSlide+1,
+										currentSlide: this.state.currentSlide+1,
+										nextSlide: n+1,
+									})
+									totalSec = parseInt(pl[c].minutes*60)+parseInt(pl[c].seconds)
+								}
+							}else if(this.state.nextSlide>this.state.playList.length){
+								if(totalSec>=0){
+									totalSec = totalSec-1
+								} else if (totalSec<0){
+									this.setState({title: "That's it for cardio today. Great job! Get ready to lift!"});
+									clearInterval(tock)
+									return
+								}
+							}
+							
+						} else if (this.state.playList.length <0){
+							alert("playList length is negative. This shouldn't be possible. ")
+							clearInterval(tock);
+							return
+						}
+					}else if (this.state.isRunning === false){
+						alert("Workout paused. Press start to resume.");
+						clearInterval(tock);
+						return;
+					}
+					
+				}
+			},1000)
 		}
-	}
-	
 
+			 
+	}
 
 	format(){
 		console.log("formatter called");
@@ -166,7 +211,7 @@ class TimerDisplay extends Component {
 			this.setState({formattedTime: (this.state.minutes+":"+"0"+this.state.seconds)});
 		} else if (this.state.minutes > 10 && this.state.minutes > 10){
 			this.setState({formattedTime: (+this.state.minutes+":"+this.state.seconds)});
-		} else if (this.state.minutes === 0 && this.state.seconds === 0){
+		} else if (this.state.minutes === 0 && this.state.seconds === 0 && this.state.isRunning === false){
 			this.setState({formattedTime: "--:--"});
 		}
 	}
