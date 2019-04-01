@@ -20,6 +20,7 @@ class TimerDisplay extends Component {
 			currentSlide: 0,
 			nextSlide: 1,
 			playList: [],
+			loop: true
 		}
 		this.SlidesRef = this.props.firebase.database().ref('Slides');
 	}
@@ -61,6 +62,10 @@ class TimerDisplay extends Component {
 		this.setState({ isRunning: !this.state.isRunning});
 	}
 
+	toggleLoop(e){
+		this.setState({ loop: !this.state.loop});
+	}
+
 	tick(e){
 		this.toggleIsRunning(e);
 		var oldMin = parseInt(this.state.minutes*60);
@@ -96,10 +101,6 @@ class TimerDisplay extends Component {
 
 	goFull(e) {
 		this.setState({ isFull: true });
-	}
-
-	callNextSlide(){
-		
 	}	
 
 	startWorkout(e){
@@ -177,9 +178,23 @@ class TimerDisplay extends Component {
 								if(totalSec>=0){
 									totalSec = totalSec-1
 								} else if (totalSec<0){
-									this.setState({title: "That's it for cardio today. Great job! Get ready to lift!"});
-									clearInterval(tock)
-									return
+									if(this.state.loop === true){
+										this.setState({
+											title: pl[0].title,
+											color: pl[0].color,
+											minutes: pl[0].minutes,
+											seconds: pl[0].seconds,
+											lastSlide: -1,
+											currentSlide: 0,
+											nextSlide: 1
+										})
+										totalSec = parseInt(pl[0].minutes*60)+parseInt(pl[0].seconds)
+									} else if (this.state.loop === false){
+										this.setState({title: "That's it for cardio today. Great job! Get ready to lift!"});
+										clearInterval(tock)
+										return
+									}
+									
 								}
 							}
 							
@@ -205,14 +220,16 @@ class TimerDisplay extends Component {
 		console.log("formatter called");
 		if(this.state.minutes <10 && this.state.seconds <10){
 			this.setState({formattedTime: ("0"+this.state.minutes+":"+"0"+this.state.seconds)});
-		} else if (this.state.minutes < 10 && this.state.seconds >10){
+		} else if (this.state.minutes < 10 && this.state.seconds >=10){
 			this.setState({formattedTime: ("0"+this.state.minutes+":"+this.state.seconds)});
-		} else if (this.state.minutes > 10 && this.state.seconds < 10){
+		} else if (this.state.minutes >= 10 && this.state.seconds < 10){
 			this.setState({formattedTime: (this.state.minutes+":"+"0"+this.state.seconds)});
-		} else if (this.state.minutes > 10 && this.state.minutes > 10){
+		} else if (this.state.minutes >= 10 && this.state.minutes >= 10){
 			this.setState({formattedTime: (+this.state.minutes+":"+this.state.seconds)});
 		} else if (this.state.minutes === 0 && this.state.seconds === 0 && this.state.isRunning === false){
 			this.setState({formattedTime: "--:--"});
+		} else if (this.state.minutes === 0 && this.state.seconds <0 && this.state.isRunning === true){
+			this.setState({formattedTime: "00:00"})
 		}
 	}
 
@@ -224,10 +241,13 @@ class TimerDisplay extends Component {
 					enabled = {this.state.isFull}
 					onChange={isFull => this.setState({isFull})}
 				>
-				<div  className= "centeredOnScreen" style={{margin: "20px", backgroundColor: this.state.color}}>
+				<div  className= {this.state.isFull === true ? "isFull":"centeredOnScreen" } style={{margin: "20px", backgroundColor: this.state.color}}>
 					<h1> {this.state.title}: {this.state.formattedTime}</h1>
 				</div>
 				</Fullscreen>
+				<div>
+					<p> The current workout loaded is: {this.props.currentWorkout.title}</p>
+				</div>
 				<div className="row">
 					<form>
 						Title: <input type = "text" onChange={(e)=> this.catchTitle(e)}/>
@@ -243,6 +263,7 @@ class TimerDisplay extends Component {
 					<button> Delete </button>
 					<p> "TODO: add player controls"</p>
 					<button onClick={(e)=>this.startWorkout()}> Start </button>
+					<button onClick={(e)=>this.toggleLoop()}> Loop </button>
 				</div>
 				
 			</div>

@@ -13,6 +13,37 @@ code {
     monospace;
 }
 
+.GreenSlides{
+  background-color: lightGreen;
+} 
+
+.YellowSlides{
+  background-color: lightYellow;
+}
+
+.RedSlides{
+  background-color: IndianRed;
+}
+
+.OtherSlides{
+  background-color: Aqua;
+}
+
+.hide{
+  visibility: hidden;
+}
+
+.isFull{
+  font-size: 100px;
+  color: white;  
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+}
+
 .centeredOnScreen {
   height: 100%;
   display: flex;
@@ -727,4 +758,462 @@ code {
 }
 .YellowGreenOut{
   border: 3px solid YellowGreen;
+}
+
+.threeGrayBack {
+  background-image: linear-gradient(Gainsboro, Silver, White);
+}
+
+.threeBlueBack {
+  background-image: linear-gradient(AliceBlue, CornflowerBlue, LightSkyBlue);
+}
+
+.AliceBlueBack {
+  background-color: AliceBlue;
+}
+.AntiqueWhiteBack {
+  background-color: AntiqueWhite;
+}
+.AquaBack {
+  background-color: Aqua;
+}
+.AquamarineBack {
+  background-color: Aquamarine;
+}
+.AzureBack {
+  background-color: Azure;
+}
+.BeigeBack {
+  background-color: Beige;
+}
+.BisqueBack {
+  background-color: Bisque;
+}
+.BlackBack {
+  background-color: Black;
+}
+.BlanchedAlmondBack {
+  background-color: BlanchedAlmond;
+}
+.BlueBack {
+  background-color: Blue;
+}
+.BlueVioletBack {
+  background-color: BlueViolet;
+}
+.BrownBack {
+  background-color: Brown;
+}
+.BurlyWoodBack {
+  background-color: BurlyWood;
+}
+.CadetBlueBack {
+  background-color: CadetBlue;
+}
+.ChartreuseBack {
+  background-color: Chartreuse;
+}
+.ChocolateBack {
+  background-color: Chocolate;
+}
+.CoralBack {
+  background-color: Coral;
+}
+.CornflowerBlueBack {
+  background-color: CornflowerBlue;
+}
+.CornsilkBack {
+  background-color: Cornsilk;
+}
+.CrimsonBack {
+  background-color: Crimson;
+}
+.CyanBack {
+  background-color: Cyan;
+}
+.DarkBlueBack {
+  background-color: DarkBlue;
+}
+.DarkCyanBack {
+  background-color: DarkCyan;
+}
+.DarkGoldenRodBack {
+  background-color: DarkGoldenRod;
+}
+.DarkGrayBack {
+  background-color: DarkGray;
+}
+.DarkGreyBack {
+  background-color: DarkGrey;
+}
+.DarkGreenBack {
+  background-color: DarkGreen;
+}
+.DarkKhakiBack {
+  background-color: DarkKhaki;
+}
+.DarkMagentaBack {
+  background-color: DarkMagenta;
+}
+.DarkOliveGreenBack {
+  background-color: DarkOliveGreen;
+}
+.DarkorangeBack {
+  background-color: Darkorange;
+}
+.DarkOrchidBack {
+  background-color: DarkOrchid;
+}
+.DarkRedBack {
+  background-color: DarkRed;
+}
+.DarkSalmonBack {
+  background-color: DarkSalmon;
+}
+.DarkSeaGreenBack {
+  background-color: DarkSeaGreen;
+}
+.DarkSlateBlueBack {
+  background-color: DarkSlateBlue;
+}
+.DarkSlateGrayBack {
+  background-color: DarkSlateGray;
+}
+.DarkSlateGreyBack {
+  background-color: DarkSlateGrey;
+}
+.DarkTurquoiseBack {
+  background-color: DarkTurquoise;
+}
+.DarkVioletBack {
+  background-color: DarkViolet;
+}
+.DeepPinkBack {
+  background-color: DeepPink;
+}
+.DeepSkyBlueBack {
+  background-color: DeepSkyBlue;
+}
+.DimGrayBack {
+  background-color: DimGray;
+}
+.DimGreyBack {
+  background-color: DimGrey;
+}
+.DodgerBlueBack {
+  background-color: DodgerBlue;
+}
+.FireBrickBack {
+  background-color: FireBrick;
+}
+.FloralWhiteBack {
+  background-color: FloralWhite;
+}
+.ForestGreenBack {
+  background-color: ForestGreen;
+}
+.FuchsiaBack {
+  background-color: Fuchsia;
+}
+.GainsboroBack {
+  background-color: Gainsboro;
+}
+.GhostWhiteBack {
+  background-color: GhostWhite;
+}
+.GoldBack {
+  background-color: Gold;
+}
+.GoldenRodBack {
+  background-color: GoldenRod;
+}
+.GrayBack {
+  background-color: Gray;
+}
+.GreyBack {
+  background-color: Grey;
+}
+.GreenBack {
+  background-color: Green;
+}
+.GreenYellowBack {
+  background-color: GreenYellow;
+}
+.HoneyDewBack {
+  background-color: HoneyDew;
+}
+.HotPinkBack {
+  background-color: HotPink;
+}
+.IndianRedBack {
+  background-color: IndianRed;
+}
+.IndigoBack {
+  background-color: Indigo;
+}
+.IvoryBack {
+  background-color: Ivory;
+}
+.KhakiBack {
+  background-color: Khaki;
+}
+.LavenderBack {
+  background-color: Lavender;
+}
+.LavenderBlushBack {
+  background-color: LavenderBlush;
+}
+.LawnGreenBack {
+  background-color: LawnGreen;
+}
+.LemonChiffonBack {
+  background-color: LemonChiffon;
+}
+.LightBlueBack {
+  background-color: LightBlue;
+}
+.LightCoralBack {
+  background-color: LightCoral;
+}
+.LightCyanBack {
+  background-color: LightCyan;
+}
+.LightGoldenRodYellowBack {
+  background-color: LightGoldenRodYellow;
+}
+.LightGrayBack {
+  background-color: LightGray;
+}
+.LightGreyBack {
+  background-color: LightGrey;
+}
+.LightGreenBack {
+  background-color: LightGreen;
+}
+.LightPinkBack {
+  background-color: LightPink;
+}
+.LightSalmonBack {
+  background-color: LightSalmon;
+}
+.LightSeaGreenBack {
+  background-color: LightSeaGreen;
+}
+.LightSkyBlueBack {
+  background-color: LightSkyBlue;
+}
+.LightSlateGrayBack {
+  background-color: LightSlateGray;
+}
+.LightSlateGreyBack {
+  background-color: LightSlateGrey;
+}
+.LightSteelBlueBack {
+  background-color: LightSteelBlue;
+}
+.LightYellowBack {
+  background-color: LightYellow;
+}
+.LimeBack {
+  background-color: Lime;
+}
+.LimeGreenBack {
+  background-color: LimeGreen;
+}
+.LinenBack {
+  background-color: Linen;
+}
+.MagentaBack {
+  background-color: Magenta;
+}
+.MaroonBack {
+  background-color: Maroon;
+}
+.MediumAquaMarineBack {
+  background-color: MediumAquaMarine;
+}
+.MediumBlueBack {
+  background-color: MediumBlue;
+}
+.MediumOrchidBack {
+  background-color: MediumOrchid;
+}
+.MediumPurpleBack {
+  background-color: MediumPurple;
+}
+.MediumSeaGreenBack {
+  background-color: MediumSeaGreen;
+}
+.MediumSlateBlueBack {
+  background-color: MediumSlateBlue;
+}
+.MediumSpringGreenBack {
+  background-color: MediumSpringGreen;
+}
+.MediumTurquoiseBack {
+  background-color: MediumTurquoise;
+}
+.MediumVioletRedBack {
+  background-color: MediumVioletRed;
+}
+.MidnightBlueBack {
+  background-color: MidnightBlue;
+}
+.MintCreamBack {
+  background-color: MintCream;
+}
+.MistyRoseBack {
+  background-color: MistyRose;
+}
+.MoccasinBack {
+  background-color: Moccasin;
+}
+.NavajoWhiteBack {
+  background-color: NavajoWhite;
+}
+.NavyBack {
+  background-color: Navy;
+}
+.OldLaceBack {
+  background-color: OldLace;
+}
+.OliveBack {
+  background-color: Olive;
+}
+.OliveDrabBack {
+  background-color: OliveDrab;
+}
+.OrangeBack {
+  background-color: Orange;
+}
+.OrangeRedBack {
+  background-color: OrangeRed;
+}
+.OrchidBack {
+  background-color: Orchid;
+}
+.PaleGoldenRodBack {
+  background-color: PaleGoldenRod;
+}
+.PaleGreenBack {
+  background-color: PaleGreen;
+}
+.PaleTurquoiseBack {
+  background-color: PaleTurquoise;
+}
+.PaleVioletRedBack {
+  background-color: PaleVioletRed;
+}
+.PapayaWhipBack {
+  background-color: PapayaWhip;
+}
+.PeachPuffBack {
+  background-color: PeachPuff;
+}
+.PeruBack {
+  background-color: Peru;
+}
+.PinkBack {
+  background-color: Pink;
+}
+.PlumBack {
+  background-color: Plum;
+}
+.PowderBlueBack {
+  background-color: PowderBlue;
+}
+.PurpleBack {
+  background-color: Purple;
+}
+.RedBack {
+  background-color: Red;
+}
+.RosyBrownBack {
+  background-color: RosyBrown;
+}
+.RoyalBlueBack {
+  background-color: RoyalBlue;
+}
+.SaddleBrownBack {
+  background-color: SaddleBrown;
+}
+.SalmonBack {
+  background-color: Salmon;
+}
+.SandyBrownBack {
+  background-color: SandyBrown;
+}
+.SeaGreenBack {
+  background-color: SeaGreen;
+}
+.SeaShellBack {
+  background-color: SeaShell;
+}
+.SiennaBack {
+  background-color: Sienna;
+}
+.SilverBack {
+  background-color: Silver;
+}
+.SkyBlueBack {
+  background-color: SkyBlue;
+}
+.SlateBlueBack {
+  background-color: SlateBlue;
+}
+.SlateGrayBack {
+  background-color: SlateGray;
+}
+.SlateGreyBack {
+  background-color: SlateGrey;
+}
+.SnowBack {
+  background-color: Snow;
+}
+.SpringGreenBack {
+  background-color: SpringGreen;
+}
+.SteelBlueBack {
+  background-color: SteelBlue;
+}
+.TanBack {
+  background-color: Tan;
+}
+.TealBack {
+  background-color: Teal;
+}
+.ThistleBack {
+  background-color: Thistle;
+}
+.TomatoBack {
+  background-color: Tomato;
+}
+.TurquoiseBack {
+  background-color: Turquoise;
+}
+.VioletBack {
+  background-color: Violet;
+}
+.WheatBack {
+  background-color: Wheat;
+}
+.WhiteBack {
+  background-color: White;
+}
+.WhiteSmokeBack {
+  background-color: WhiteSmoke;
+}
+.YellowBack {
+  background-color: Yellow;
+}
+.YellowGreenBack {
+  background-color: YellowGreen;
+}
+.noBack {
+  background-color: transparent;
+}
+.noBack:hover {
+  background-color: white;
+  color: black;
+  opacity: 0.7;
 }

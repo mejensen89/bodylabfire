@@ -13,6 +13,7 @@ class SlideList extends Component {
 			lastPlayed: this.props.firebase.database.ServerValue.TIMESTAMP,
 			queue: [], 
 			slideList: [],
+			showTab: false,
 		}
 		this.SlidesRef = this.props.firebase.database().ref('Slides');
 		this.createSlide = this.createSlide.bind(this);
@@ -74,6 +75,8 @@ class SlideList extends Component {
 		this.SlidesRef.child(slide.key).remove();
 	}
 
+	
+
 
 
 
@@ -81,10 +84,9 @@ class SlideList extends Component {
 		return(
 			<div>
 				<h2> Make New Slide </h2>
-				<div className=" row">
-					
+				<div className=" row">					
 					<form onSubmit = {(e)=> {e.preventDefault(); this.createSlide(this.state.newSlide)}} >
-						<formRow className = "smallRow">					
+						<formRow className = "smallRow ">					
 						<legend>Title: </legend>
 						<input type = "text" onChange={(e)=> this.catchTitle(e)}/>
 						<legend>Color:</legend>
@@ -100,22 +102,89 @@ class SlideList extends Component {
 				</div>
 				<h1> Slide List </h1>
 				<p> click the ID to add the workout to the queue </p>
-				<div className="slideList wrapRow">
-					{this.props.slideList.map((slide, index)=>
-						<div key={index} className="slideListEntry">
-							<p><strong>  {slide.title} </strong></p>
-							<p> Color: {slide.color} </p>
-							<p> ID: </p>
-							<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
-							<p> {slide.minutes}:{slide.seconds} </p>
-							
-							<button
-								onClick = {(e)=>this.removeSlide(slide)}
-							> Delete </button>
 
+				<div>
+					<div>
+						<button> Green </button>
+						<div className="slideList wrapRow sliverBack">
+							{this.props.slideList.filter(slide => slide.color == "Green" ).map((slide, index)=>
+								<div key={index} className="slideListEntry" >
+									<p><strong>  {slide.title} </strong></p>
+									<p> Color: {slide.color} </p>
+									<p> ID: </p>
+									<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
+									<p> {slide.minutes}:{slide.seconds} </p>
+									
+									<button
+										onClick = {(e)=>this.removeSlide(slide)}
+									> Delete </button>
+
+								</div>
+							)}
 						</div>
-					)}
+					</div>
+					<div>
+						<button> Yellow </button>
+						<div className="slideList wrapRow sliverBack">
+							{this.props.slideList.filter(slide => slide.color == "Yellow" ).map((slide, index)=>
+								<div key={index} className="slideListEntry" >
+									<p><strong>  {slide.title} </strong></p>
+									<p> Color: {slide.color} </p>
+									<p> ID: </p>
+									<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
+									<p> {slide.minutes}:{slide.seconds} </p>
+									
+									<button
+										onClick = {(e)=>this.removeSlide(slide)}
+									> Delete </button>
+
+								</div>
+							)}
+						</div>
+					</div>
+					<div>
+						<button> Red </button>
+						<div className="slideList wrapRow sliverBack">
+							{this.props.slideList.filter(slide => slide.color == "Red" ).map((slide, index)=>
+								<div key={index} className="slideListEntry" >
+									<p><strong>  {slide.title} </strong></p>
+									<p> Color: {slide.color} </p>
+									<p> ID: </p>
+									<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
+									<p> {slide.minutes}:{slide.seconds} </p>
+									
+									<button
+										onClick = {(e)=>this.removeSlide(slide)}
+									> Delete </button>
+
+								</div>
+							)}
+						</div>
+					</div>
+					<div>
+						<button> Other </button>
+						<div className="slideList wrapRow">
+							{this.props.slideList.filter(slide => 
+								slide.color != "Green" && slide.color != "Yellow" && slide.color != "Red" )
+								.map((slide, index)=>
+								<div key={index} className="slideListEntry sliverBack" >
+									<p><strong>  {slide.title} </strong></p>
+									<p> Color: {slide.color} </p>
+									<p> ID: </p>
+									<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
+									<p> {slide.minutes}:{slide.seconds} </p>
+									
+									<button
+										onClick = {(e)=>this.removeSlide(slide)}
+									> Delete </button>
+
+								</div>
+							)}
+						</div>
+					</div>
+					
 				</div>
+				
 			</div>
 		)
 	}

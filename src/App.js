@@ -78,8 +78,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className=" centered row">
+      <div className="App ">
+        <div className=" centered row threeBlueBack">
           <TimerDisplay 
             firebase={firebase}
             slideQueue = {this.state.queue}

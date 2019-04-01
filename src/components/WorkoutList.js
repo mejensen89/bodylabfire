@@ -17,6 +17,11 @@ class WorkoutList extends Component{
 	}
 
 	componentDidMount(){
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		var yyyy = today.getFullYear();
+		today = mm + '/' + dd + '/' + yyyy
 		this.WorkoutsRef.on('child_added', snapshot =>{
 			const workout = snapshot.val();
 			workout.key = snapshot.key
@@ -25,6 +30,7 @@ class WorkoutList extends Component{
 		this.WorkoutsRef.on('child_removed', snapshot =>{
 			this.setState({workoutList: this.state.workoutList.filter(workout => workout.key !== snapshot.key)});
 		});
+		
 	}
 
 	createWorkout(newWorkout){
