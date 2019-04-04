@@ -3,17 +3,9 @@ import * as firebase from 'firebase';
 import TimerDisplay from './components/TimerDisplay';
 import SlideList from './components/SlideList';
 import WorkoutList from './components/WorkoutList';
+import Login from './components/Login';
 import './App.css';
-
-var config = {
-    apiKey: "AIzaSyD2phjazBJ11tnYm3WcLVBLlfU8ZV4LQkg",
-    authDomain: "bodylabfire.firebaseapp.com",
-    databaseURL: "https://bodylabfire.firebaseio.com",
-    projectId: "bodylabfire",
-    storageBucket: "bodylabfire.appspot.com",
-    messagingSenderId: "298581608652"
-  };
-firebase.initializeApp(config);
+import fire from './components/config/fire';
 
 class App extends Component {
   constructor(props){
@@ -24,10 +16,12 @@ class App extends Component {
       lastSlide: '',
       queue: [],
       slideList: [],
+      user: null,
     }
     this.SlidesRef = firebase.database().ref('Slides');
     this.createSlide = this.createSlide.bind(this);
     this.setCurrentWorkout = this.setCurrentWorkout.bind(this);
+    this.authListener = this.authListener.bind(this);
   }
 
   componentDidMount(){
@@ -39,6 +33,20 @@ class App extends Component {
     });
     this.SlidesRef.on('child_removed', snapshot =>{
       this.setState({slideList: this.state.slideList.filter(slide => slide.key !== snapshot.key)})
+    });
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem('user', user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem('user');
+      }
     });
   }
 
@@ -74,36 +82,48 @@ class App extends Component {
 
   setCurrentWorkout(workout){
     this.setState({currentWorkout: workout})
-  }  
+  } 
+
+  logout() {
+      fire.auth().signOut();
+  } 
 
   render() {
     return (
-      <div className="App ">
-        <div className=" centered row threeBlueBack">
-          <TimerDisplay 
-            firebase={firebase}
-            slideQueue = {this.state.queue}
-            slideList = {this.state.slideList}
-            currentWorkout = {this.state.currentWorkout}
-          />
-        </div>
-        <div className="row">
-          <div className = "threeWide">
-            <SlideList 
-              firebase= {firebase}
-              addToWorkout = {this.slidesToWorkout.bind(this)}
-              slideList = {this.state.slideList}
-            />
-          </div>
-          <div className = "threeWide">
-            <WorkoutList
-              firebase = {firebase}
+      <div className="App ">{this.state.user ? (
+        <div>       
+          <div className=" centered row threeBlueBack">
+            <TimerDisplay 
+              firebase={firebase}
               slideQueue = {this.state.queue}
-              setCurrentWorkout = {this.setCurrentWorkout}
+              slideList = {this.state.slideList}
+              currentWorkout = {this.state.currentWorkout}
             />
+            <button onClick={(e)=>this.logout(e)}>
+              Log Out
+            </button>
+          </div>
+          <div className="row">
+            <div className = "threeWide">
+              <SlideList 
+                firebase= {firebase}
+                addToWorkout = {this.slidesToWorkout.bind(this)}
+                slideList = {this.state.slideList}
+              />
+            </div>
+            <div className = "threeWide">
+              <WorkoutList
+                firebase = {firebase}
+                slideQueue = {this.state.queue}
+                setCurrentWorkout = {this.setCurrentWorkout}
+              />
+            </div>
           </div>
         </div>
+        )         
+        : (<Login />)}
       </div>
+    
     );
   }
 }

@@ -7,8 +7,7 @@ class WorkoutList extends Component{
 			workoutList: [], 
 			workoutTitle: '',
 			workoutDate: '',
-			workoutSlides: [],
-			workoutList: [], 
+			workoutSlides: [], 
 			currentWorkout: '',
 		}
 		this.WorkoutsRef = this.props.firebase.database().ref('Workouts');

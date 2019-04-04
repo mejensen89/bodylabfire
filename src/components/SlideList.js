@@ -75,9 +75,9 @@ class SlideList extends Component {
 		this.SlidesRef.child(slide.key).remove();
 	}
 
-	
-
-
+	setTab(e){
+		this.setState({showTab: e.target.innerText})
+	}
 
 
 	render(){
@@ -104,15 +104,20 @@ class SlideList extends Component {
 				<p> click the ID to add the workout to the queue </p>
 
 				<div>
-					<div>
-						<button> Green </button>
+					<h4> Click to show slides </h4>
+					<div className = ' centered row'>						
+						<button onClick={(e)=>this.setTab(e)}> Green </button>
+						<button onClick={(e)=>this.setTab(e)}> Yellow </button>
+						<button onClick={(e)=>this.setTab(e)}> Red </button>
+						<button onClick={(e)=>this.setTab(e)}> Other </button>
+					</div>
+					<div className={this.state.showTab === "Green"?("GreenSlides"):("hide")}>
 						<div className="slideList wrapRow sliverBack">
 							{this.props.slideList.filter(slide => slide.color == "Green" ).map((slide, index)=>
 								<div key={index} className="slideListEntry" >
 									<p><strong>  {slide.title} </strong></p>
 									<p> Color: {slide.color} </p>
-									<p> ID: </p>
-									<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
+									<button onClick={(e)=> this.addToWorkout(e)} > ID:{slide.key}  </button>
 									<p> {slide.minutes}:{slide.seconds} </p>
 									
 									<button
@@ -123,15 +128,13 @@ class SlideList extends Component {
 							)}
 						</div>
 					</div>
-					<div>
-						<button> Yellow </button>
+					<div className={this.state.showTab === "Yellow"?("YellowSlides"):("hide")}>
 						<div className="slideList wrapRow sliverBack">
 							{this.props.slideList.filter(slide => slide.color == "Yellow" ).map((slide, index)=>
 								<div key={index} className="slideListEntry" >
 									<p><strong>  {slide.title} </strong></p>
 									<p> Color: {slide.color} </p>
-									<p> ID: </p>
-									<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
+									<button onClick={(e)=> this.addToWorkout(e)} > ID:{slide.key}  </button>
 									<p> {slide.minutes}:{slide.seconds} </p>
 									
 									<button
@@ -142,15 +145,13 @@ class SlideList extends Component {
 							)}
 						</div>
 					</div>
-					<div>
-						<button> Red </button>
+					<div className={this.state.showTab === "Red"?("RedSlides"):("hide")}>
 						<div className="slideList wrapRow sliverBack">
 							{this.props.slideList.filter(slide => slide.color == "Red" ).map((slide, index)=>
 								<div key={index} className="slideListEntry" >
 									<p><strong>  {slide.title} </strong></p>
 									<p> Color: {slide.color} </p>
-									<p> ID: </p>
-									<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
+									<button onClick={(e)=> this.addToWorkout(e)} >ID:{slide.key}  </button>
 									<p> {slide.minutes}:{slide.seconds} </p>
 									
 									<button
@@ -161,8 +162,7 @@ class SlideList extends Component {
 							)}
 						</div>
 					</div>
-					<div>
-						<button> Other </button>
+					<div className={this.state.showTab === "Other"?("OtherSlides"):("hide")}>
 						<div className="slideList wrapRow">
 							{this.props.slideList.filter(slide => 
 								slide.color != "Green" && slide.color != "Yellow" && slide.color != "Red" )
@@ -170,8 +170,7 @@ class SlideList extends Component {
 								<div key={index} className="slideListEntry sliverBack" >
 									<p><strong>  {slide.title} </strong></p>
 									<p> Color: {slide.color} </p>
-									<p> ID: </p>
-									<p onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </p>
+									<button onClick={(e)=> this.addToWorkout(e)} > ID:{slide.key}  </button>
 									<p> {slide.minutes}:{slide.seconds} </p>
 									
 									<button

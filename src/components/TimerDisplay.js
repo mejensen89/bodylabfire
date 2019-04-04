@@ -26,20 +26,20 @@ class TimerDisplay extends Component {
 	}
 
 	componentDidMount(){
-		console.log("Here is the Timer Display");
+		
 		this.setState({currentWorkout: this.props.currentWorkout});
 	}	
 
-	componentDidUpdate(prevProps, prevState) {
-		console.log("TimerDisplay Updated");
+	/*componentDidUpdate(prevProps, prevState) {
 	  if(prevState.minutes !==this.state.minutes || prevState.seconds !== this.state.seconds){
-	  	this.format();
+	  	
 	    this.setState({
 			minutes: this.state.minutes,
 			seconds: this.state.seconds,
 	    })
+	    //this.format();
 	  }
-	}
+	}*/
 
 	catchMinutes (e){
 		console.log("things are happening!!!");
@@ -111,8 +111,7 @@ class TimerDisplay extends Component {
 		if (this.props.currentWorkout.slides === undefined){
 			alert("We're glad you're ready to start your workout. Would you please load the workout you'd like to do first?");
 		} else if (this.props.currentWorkout.slides !== undefined){
-			this.format();
-			
+			//this.format();			
 			var tock = setInterval(()=>{
 				
 				this.format();
@@ -125,14 +124,14 @@ class TimerDisplay extends Component {
 				});
 				if (this.state.playList.length > this.props.currentWorkout.slides.length){
 					clearInterval(tock);
-					alert("Something went wrong. There are more zones loaded than are in this workout. Please tell the front desk (reference line 128)");
+					alert("Something went wrong. There are more zones loaded than are in this workout. Please tell the front desk");
 					return
 				} else if (this.state.playList.length <= this.props.currentWorkout.slides.length){
 					if (this.state.isRunning === true){
 						if (this.state.playList.length ===0){
 							this.setState({
 								title: "Loading...",
-								formattedTime: "This is gonna be good",
+								formattedTime: "Get Ready",
 							})							
 							for (var j = 0; j< this.props.currentWorkout.slides.length; j++){
 								for (var x = 0; x <this.props.slideList.length; x++){
@@ -159,10 +158,9 @@ class TimerDisplay extends Component {
 							let n = this.state.currentSlide+1;
 							let pl = this.state.playList;
 							if (this.state.nextSlide<= this.state.playList.length){
-								if (totalSec >=0){
+								if (totalSec >= 0){
 									totalSec = totalSec-1;
 								} else if (totalSec < 0){
-
 									this.setState({
 										title: pl[c].title,
 										color: pl[c].color,
@@ -219,17 +217,17 @@ class TimerDisplay extends Component {
 	format(){
 		console.log("formatter called");
 		if(this.state.minutes <10 && this.state.seconds <10){
-			this.setState({formattedTime: ("0"+this.state.minutes+":"+"0"+this.state.seconds)});
-		} else if (this.state.minutes < 10 && this.state.seconds >=10){
-			this.setState({formattedTime: ("0"+this.state.minutes+":"+this.state.seconds)});
+			this.setState({formattedTime: ("0"+ this.state.minutes+":0"+this.state.seconds)});
+		} else if ( this.state.minutes < 10 && this.state.seconds >=10){
+			this.setState({formattedTime: ("0" +this.state.minutes+":"+this.state.seconds)});
 		} else if (this.state.minutes >= 10 && this.state.seconds < 10){
-			this.setState({formattedTime: (this.state.minutes+":"+"0"+this.state.seconds)});
+			this.setState({formattedTime: (this.state.minutes+":0"+this.state.seconds)});
 		} else if (this.state.minutes >= 10 && this.state.minutes >= 10){
-			this.setState({formattedTime: (+this.state.minutes+":"+this.state.seconds)});
+			this.setState({formattedTime: (this.state.minutes+":"+this.state.seconds)});
 		} else if (this.state.minutes === 0 && this.state.seconds === 0 && this.state.isRunning === false){
 			this.setState({formattedTime: "--:--"});
-		} else if (this.state.minutes === 0 && this.state.seconds <0 && this.state.isRunning === true){
-			this.setState({formattedTime: "00:00"})
+		} else if (this.state.minutes <= 0 && this.state.seconds <=0 && this.state.isRunning === true){
+			this.setState({formattedTime: "--:--"})
 		}
 	}
 
