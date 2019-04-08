@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Fullscreen from "react-full-screen";
+import Logo from '../logo.svg';
 
 
 class TimerDisplay extends Component {
@@ -20,7 +21,8 @@ class TimerDisplay extends Component {
 			currentSlide: 0,
 			nextSlide: 1,
 			playList: [],
-			loop: true
+			loop: true,
+			currentWorkout: ''
 		}
 		this.SlidesRef = this.props.firebase.database().ref('Slides');
 	}
@@ -30,19 +32,15 @@ class TimerDisplay extends Component {
 		this.setState({currentWorkout: this.props.currentWorkout});
 	}	
 
-	/*componentDidUpdate(prevProps, prevState) {
-	  if(prevState.minutes !==this.state.minutes || prevState.seconds !== this.state.seconds){
-	  	
-	    this.setState({
-			minutes: this.state.minutes,
-			seconds: this.state.seconds,
-	    })
-	    //this.format();
+	componentDidUpdate(prevProps, prevState) {
+	  if(prevProps.currentWorkout !== this.props.currentWorkout){
+	  	console.log("Updated Workout currently loaded. ");
+	  	this.setState({currentWorkout: this.props.currentWorkout})
 	  }
-	}*/
+	    //this.format();
+	}
 
 	catchMinutes (e){
-		console.log("things are happening!!!");
 		this.setState({ minutes: e.target.value });
 	}
 
@@ -241,10 +239,11 @@ class TimerDisplay extends Component {
 				>
 				<div  className= {this.state.isFull === true ? "isFull":"centeredOnScreen" } style={{margin: "20px", backgroundColor: this.state.color}}>
 					<h1> {this.state.title}: {this.state.formattedTime}</h1>
+          			<img src={Logo}  className={this.state.isFull?("App-logo-big"):("App-logo-small")} alt="logo" />
 				</div>
 				</Fullscreen>
 				<div>
-					<p> The current workout loaded is: {this.props.currentWorkout.title}</p>
+					<p> The current workout loaded is: {this.state.currentWorkout.Title}</p>
 				</div>
 				<div className="row">
 					<form>

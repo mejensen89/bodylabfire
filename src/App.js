@@ -37,6 +37,8 @@ class App extends Component {
     this.authListener();
   }
 
+
+
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
       console.log(user);
@@ -87,6 +89,7 @@ class App extends Component {
   logout() {
       fire.auth().signOut();
   } 
+ 
 
   render() {
     return (
@@ -109,9 +112,36 @@ class App extends Component {
                 firebase= {firebase}
                 addToWorkout = {this.slidesToWorkout.bind(this)}
                 slideList = {this.state.slideList}
+                currentWorkout = {this.state.currentWorkout}
               />
             </div>
             <div className = "threeWide">
+              <WorkoutList
+                firebase = {firebase}
+                slideQueue = {this.state.queue}
+                setCurrentWorkout = {this.setCurrentWorkout}
+                user = {this.state.user}
+              />
+            </div>
+          </div>
+        </div>
+        )         
+        : ( 
+        <div>       
+          <div className=" centered row threeBlueBack">
+            <TimerDisplay 
+              firebase={firebase}
+              slideQueue = {this.state.queue}
+              slideList = {this.state.slideList}
+              currentWorkout = {this.state.currentWorkout}
+            />
+          </div>
+          <div className="row">
+            <div className = "oneWide">
+              <h2> HC Login </h2> 
+              <Login />
+            </div>
+            <div className = "fiveWide">
               <WorkoutList
                 firebase = {firebase}
                 slideQueue = {this.state.queue}
@@ -120,8 +150,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        )         
-        : (<Login />)}
+        )}
       </div>
     
     );

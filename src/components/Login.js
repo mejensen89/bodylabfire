@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import fire from './config/fire';
 
 class Login extends Component {
@@ -7,7 +6,7 @@ class Login extends Component {
     super(props);
     this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.signup = this.signup.bind(this);
+    //this.signup = this.signup.bind(this);
     this.state = {
       email: '',
       password: ''
@@ -26,33 +25,43 @@ class Login extends Component {
       });
   }
 
-  signup(e){
+  //sign up function removed to make it so only users put in by a human being can log in. 
+  //That is the simplest security feature I could think of and since its for a small scale application, I think its an ok solution. 
+
+  /*signup(e){
     e.preventDefault();
     fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
     }).then((u)=>{console.log(u)})
     .catch((error) => {
         console.log(error);
       })
-  }
+
+      ///Here's the sign up button if we need it again. 
+      //<button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
+
+  }*/
+
   render() {
     return (
        <div className="sixWide">
-       <form>
-      <div >
-       <label for="exampleInputEmail1">Email address</label>
-       <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-       <small id="emailHelp" >We'll never share your email with anyone else.</small>
-      </div>
-       <div >
-      <label for="exampleInputPassword1">Password</label>
-      <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-      </div>
-      <button type="submit" onClick={this.login} >Login</button>
-      <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
- </form>
- 
- </div>
-    );
+
+           <form className= "blackOut threeGrayBack">
+            <div>
+             <label for="exampleInputEmail1">Email address</label>
+             <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+            </div>
+            <div>
+              <small>We'll never share your email with anyone else.</small>
+            </div>
+             <div >
+            <label for="exampleInputPassword1">Password</label>
+            <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+            </div>
+            <button type="submit" onClick={this.login} >Login</button>
+          </form>
+       
+       </div>
+      );
   }
 }
 export default Login;

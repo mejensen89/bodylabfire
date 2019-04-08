@@ -9,18 +9,17 @@ class WorkoutList extends Component{
 			workoutDate: '',
 			workoutSlides: [], 
 			currentWorkout: '',
+			user: this.props.user,
+			currentDay: ''
 		}
 		this.WorkoutsRef = this.props.firebase.database().ref('Workouts');
 		this.createWorkout = this.createWorkout.bind(this);
 		this.removeWorkout = this.removeWorkout.bind(this);
 	}
 
-	componentDidMount(){
-		var today = new Date();
-		var dd = String(today.getDate()).padStart(2, '0');
-		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-		var yyyy = today.getFullYear();
-		today = mm + '/' + dd + '/' + yyyy
+	componentDidMount(time){
+		let today = new Date().toLocaleDateString()
+		console.log(today)
 		this.WorkoutsRef.on('child_added', snapshot =>{
 			const workout = snapshot.val();
 			workout.key = snapshot.key
@@ -29,7 +28,20 @@ class WorkoutList extends Component{
 		this.WorkoutsRef.on('child_removed', snapshot =>{
 			this.setState({workoutList: this.state.workoutList.filter(workout => workout.key !== snapshot.key)});
 		});
-		
+		this.state.workoutList.map((workout, date)=>{
+			if (this.state.currentWorkout === ''){
+				if(today === workout.date){
+					this.props.currentWorkout = workout;
+					console.log("auto Loader fired")
+				}
+			}
+		})
+	}
+
+	componentDidUpdate(prevProps){
+		if(this.props.user !== prevProps.user){
+			console.log("user changed")
+		}
 	}
 
 	createWorkout(newWorkout){
@@ -98,6 +110,7 @@ class WorkoutList extends Component{
 					</form>
 				</div>
 				<h1> Workout List </h1>
+				<p> currentWorkout is {this.state.currentWorkout}</p>
 				<div className = "workoutList">
 					{this.state.workoutList.map((workout, index)=>
 						<div key= {index} className = "workoutListEntry wrapRow sixWide">
@@ -105,12 +118,21 @@ class WorkoutList extends Component{
 								<p><strong>  Title: {workout.Title} </strong></p>
 								<p> Date: {this.formatDate(workout.date)}</p>
 								<p> id: {workout.key} </p>
-								<button onClick={(e)=>this.props.setCurrentWorkout(workout)}>
-									Load 
-								</button>
-								<button onClick={(e)=>this.removeWorkout(workout)}>
-									Delete
-								</button>
+								{this.props.user? (
+									<div>
+										<button onClick={(e)=>this.props.setCurrentWorkout(workout)}>
+											Load 
+										</button>
+										<button onClick={(e)=>this.removeWorkout(workout)}>
+											Delete
+										</button>
+									</div>
+								) : (
+									<button onClick={(e)=>this.props.setCurrentWorkout(workout)}>
+										Load 
+									</button>
+								)}
+								
 							</div>
 							<div className = "smallRow">
 								<p > Slides: </p>

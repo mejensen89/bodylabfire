@@ -25,7 +25,7 @@ class SlideList extends Component {
 	      const slides = snapshot.val();
 	      slides.key = snapshot.key
 	      this.setState({ slideList: this.state.slideList.concat(slides)});
-	      console.log("slide List populated");
+	      
 	    });
 	    this.SlidesRef.on('child_removed', snapshot =>{
 	      this.setState({slideList: this.state.slideList.filter(slide => slide.key !== snapshot.key)})
@@ -33,7 +33,7 @@ class SlideList extends Component {
 	}
 
 	componentDidUpdate(){
-		console.log("Slide List updated");
+		
 	}
 
 	createSlide(newSlide){
