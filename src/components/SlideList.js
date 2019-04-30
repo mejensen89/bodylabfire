@@ -114,10 +114,10 @@ class SlideList extends Component {
 					<div className={this.state.showTab === "Green"?("GreenSlides"):("hide")}>
 						<div className="slideList wrapRow sliverBack">
 							{this.props.slideList.filter(slide => slide.color == "Green" ).map((slide, index)=>
-								<div key={index} className="slideListEntry" >
+								<div key={slide.key} className="slideListEntry" >
 									<p><strong>  {slide.title} </strong></p>
 									<p> Color: {slide.color} </p>
-									<button onClick={(e)=> this.addToWorkout(e)} > ID:{slide.key}  </button>
+									<button onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </button>
 									<p> {slide.minutes}:{slide.seconds} </p>
 									
 									<button
@@ -134,7 +134,7 @@ class SlideList extends Component {
 								<div key={index} className="slideListEntry" >
 									<p><strong>  {slide.title} </strong></p>
 									<p> Color: {slide.color} </p>
-									<button onClick={(e)=> this.addToWorkout(e)} > ID:{slide.key}  </button>
+									<button onClick={(e)=> this.addToWorkout(e)} > {slide.key}  </button>
 									<p> {slide.minutes}:{slide.seconds} </p>
 									
 									<button
@@ -151,7 +151,8 @@ class SlideList extends Component {
 								<div key={index} className="slideListEntry" >
 									<p><strong>  {slide.title} </strong></p>
 									<p> Color: {slide.color} </p>
-									<button onClick={(e)=> this.addToWorkout(e)} >ID:{slide.key}  </button>
+									<button 
+									onClick={(e)=> this.addToWorkout(e)} >{slide.key}  </button>
 									<p> {slide.minutes}:{slide.seconds} </p>
 									
 									<button
@@ -170,7 +171,7 @@ class SlideList extends Component {
 								<div key={index} className="slideListEntry sliverBack" >
 									<p><strong>  {slide.title} </strong></p>
 									<p> Color: {slide.color} </p>
-									<button onClick={(e)=> this.addToWorkout(e)} > ID:{slide.key}  </button>
+									<button onClick={(e)=> this.addToWorkout(e)} > {slide.key}  </button>
 									<p> {slide.minutes}:{slide.seconds} </p>
 									
 									<button

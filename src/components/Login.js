@@ -47,12 +47,13 @@ class Login extends Component {
 
            <form className= "blackOut threeGrayBack">
             <div>
+              <div>
+                <small>If you're having trouble logging in, please contact the admin</small>
+              </div>
              <label for="exampleInputEmail1">Email address</label>
              <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
             </div>
-            <div>
-              <small>We'll never share your email with anyone else.</small>
-            </div>
+            
              <div >
             <label for="exampleInputPassword1">Password</label>
             <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />

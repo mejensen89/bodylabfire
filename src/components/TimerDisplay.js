@@ -106,9 +106,9 @@ class TimerDisplay extends Component {
 		var oldMin = parseInt(this.state.minutes*60);
 			var oldSec = parseInt(this.state.seconds);
 			var totalSec = parseInt(oldMin)+parseInt(oldSec);
-		if (this.props.currentWorkout.slides === undefined){
+		if (!this.props.currentWorkout.slides){
 			alert("We're glad you're ready to start your workout. Would you please load the workout you'd like to do first?");
-		} else if (this.props.currentWorkout.slides !== undefined){
+		} else if (this.props.currentWorkout.slides){
 			//this.format();			
 			var tock = setInterval(()=>{
 				
@@ -122,11 +122,11 @@ class TimerDisplay extends Component {
 				});
 				if (this.state.playList.length > this.props.currentWorkout.slides.length){
 					clearInterval(tock);
-					alert("Something went wrong. There are more zones loaded than are in this workout. Please tell the front desk");
+					alert("Something went wrong. There are more slides loaded than are in this workout. Please tell the front desk");
 					return
 				} else if (this.state.playList.length <= this.props.currentWorkout.slides.length){
 					if (this.state.isRunning === true){
-						if (this.state.playList.length ===0){
+						if (this.state.playList.length === 0){
 							this.setState({
 								title: "Loading...",
 								formattedTime: "Get Ready",
@@ -146,7 +146,7 @@ class TimerDisplay extends Component {
 											console.log("playlist loaded from slideList");
 											oldMin = this.props.slideList[x].minutes;
 											oldSec = this.props.slideList[x].seconds;
-											totalSec = parseInt(this.props.slideList[x].minutes)+parseInt(this.props.slideList[x].seconds)
+											totalSec = parseInt(this.props.slideList[x].minutes*60)+parseInt(this.props.slideList[x].seconds-1)
 										}																			
 									}
 								}
@@ -168,23 +168,25 @@ class TimerDisplay extends Component {
 										currentSlide: this.state.currentSlide+1,
 										nextSlide: n+1,
 									})
-									totalSec = parseInt(pl[c].minutes*60)+parseInt(pl[c].seconds)
+									totalSec = parseInt(pl[c].minutes*60)+parseInt(pl[c].seconds-1)
 								}
 							}else if(this.state.nextSlide>this.state.playList.length){
-								if(totalSec>=0){
+								if(totalSec>= 0){
 									totalSec = totalSec-1
-								} else if (totalSec<0){
+									console.log("loop coundown call")
+								} else if (totalSec < 0){
 									if(this.state.loop === true){
 										this.setState({
 											title: pl[0].title,
 											color: pl[0].color,
 											minutes: pl[0].minutes,
 											seconds: pl[0].seconds,
-											lastSlide: -1,
-											currentSlide: 0,
-											nextSlide: 1
+											lastSlide: 0,
+											currentSlide: 1,
+											nextSlide: 2
 										})
-										totalSec = parseInt(pl[0].minutes*60)+parseInt(pl[0].seconds)
+										totalSec = parseInt(pl[0].minutes*60)+parseInt(pl[0].seconds-1)
+										console.log("loop reset call")
 									} else if (this.state.loop === false){
 										this.setState({title: "That's it for cardio today. Great job! Get ready to lift!"});
 										clearInterval(tock)
@@ -226,6 +228,8 @@ class TimerDisplay extends Component {
 			this.setState({formattedTime: "--:--"});
 		} else if (this.state.minutes <= 0 && this.state.seconds <=0 && this.state.isRunning === true){
 			this.setState({formattedTime: "--:--"})
+		} else {
+			this.setState({formattedTime: "something is wrong, very wrong. Tell Melvin"});
 		}
 	}
 
@@ -254,13 +258,9 @@ class TimerDisplay extends Component {
 					</form>
 				</div>
 				<div className= "centered smallRow">
-					<button onClick={(e)=>this.tick(e)}>Start/Pause</button>
-					<button onClick={(e)=>this.goFull(e)}> Fullscreen </button>
-					
-					<button> Delete </button>
-					<p> "TODO: add player controls"</p>
-					<button onClick={(e)=>this.startWorkout()}> Start </button>
-					<button onClick={(e)=>this.toggleLoop()}> Loop </button>
+					<button onClick={(e)=>this.goFull(e)}> Fullscreen </button>					
+					<button onClick={(e)=>this.startWorkout()}>{this.state.isRunning?("Pause"):("Start")}</button>
+					<button onClick={(e)=>this.toggleLoop()}>{this.state.loop?("Loop"):("No Loop")}</button>
 				</div>
 				
 			</div>

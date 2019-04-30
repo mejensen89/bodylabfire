@@ -9,6 +9,6 @@ const config = { /* COPY THE ACTUAL CONFIG FROM FIREBASE CONSOLE */
     storageBucket: "bodylabfire.appspot.com",
     messagingSenderId: "298581608652"
 };
-const fire = firebase.initializeApp(config);
+const Fire = firebase.initializeApp(config);
 
-export default fire;
+export default Fire;
