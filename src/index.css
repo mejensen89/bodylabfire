@@ -38,8 +38,7 @@ code {
 }
 
 .isFull{
-  font-size: 80px;
-  color: white;  
+    
   height: 100%;
   display: flex;
   align-items: center;
@@ -47,6 +46,12 @@ code {
   justify-content: center;
   margin: 0px;
   padding: 0px;
+  
+}
+
+.textIsFull{
+  font-size: 85px;
+  color: white;
   text-shadow:
     -5px -5px 0 #000,
     5px -5px 0 #000,
@@ -72,7 +77,7 @@ code {
 
 .fullscreen{
   font-color: white;
-  font-size: 50%;
+  
   font-family: sans-serif;
 }
 

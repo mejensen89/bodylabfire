@@ -241,21 +241,13 @@ class TimerDisplay extends Component {
 					enabled = {this.state.isFull}
 					onChange={isFull => this.setState({isFull})}
 				>
-				<div  className= {this.state.isFull === true ? "isFull":"centeredOnScreen" } style={{margin: "20px", backgroundColor: this.state.color}}>
-					<h1> {this.state.title}: {this.state.formattedTime}</h1>
+				<div  className= {this.state.isFull? ("isFull"):("centeredOnScreen") } style={{margin: "10px", backgroundColor: this.state.color}}>
+					<h1 className ={this.state.isFull?("textIsFull"):("none")}> {this.state.title}: {this.state.formattedTime}</h1>
           			<img src={Logo}  className={this.state.isFull?("App-logo-big"):("App-logo-small")} alt="logo" />
 				</div>
 				</Fullscreen>
 				<div>
 					<p> The current workout loaded is: {this.state.currentWorkout.Title}</p>
-				</div>
-				<div className="row">
-					<form>
-						Title: <input type = "text" onChange={(e)=> this.catchTitle(e)}/>
-						Color:<input type = "string" onChange={(e)=> this.catchColor(e)}/>
-						Minutes:<input type="number" onChange={(e)=> this.catchMinutes(e)}/> 
-						Seconds:<input type = "number" onChange={(e)=> this.catchSeconds(e)}/>  						   					
-					</form>
 				</div>
 				<div className= "centered smallRow">
 					<button onClick={(e)=>this.goFull(e)}> Fullscreen </button>					
