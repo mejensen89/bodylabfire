@@ -146,6 +146,7 @@ class App extends Component {
                 firebase = {firebase}
                 slideQueue = {this.state.queue}
                 setCurrentWorkout = {this.setCurrentWorkout}
+                user = {this.state.user}
               />
             </div>
           </div>

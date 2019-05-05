@@ -46,11 +46,7 @@ code {
   justify-content: center;
   margin: 0px;
   padding: 0px;
-  
-}
-
-.textIsFull{
-  font-size: 80px;
+  font-size: 75px;
   color: white;
   text-shadow:
     -5px -5px 0 #000,
@@ -62,6 +58,7 @@ code {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 .centeredOnScreen {

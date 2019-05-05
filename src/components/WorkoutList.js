@@ -90,7 +90,8 @@ class WorkoutList extends Component{
 		return(
 			<div>
 				<div>
-					<form onSubmit={(e)=>this.createWorkout(e)}>
+					{this.props.user?(
+						<form onSubmit={(e)=>this.createWorkout(e)}>
 						<formrow>
 							<legend> Title </legend>
 							<input type = "text" onChange={(e)=>this.catchWorkoutTitle(e)} />
@@ -108,6 +109,8 @@ class WorkoutList extends Component{
 							<input type="submit" />
 						</formrow>
 					</form>
+					):(<h1> Welcome to Body Lab! </h1>)}
+					
 				</div>
 				<h1> Workout List </h1>
 				<p> currentWorkout is {this.state.currentWorkout}</p>

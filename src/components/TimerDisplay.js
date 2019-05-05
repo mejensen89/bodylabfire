@@ -216,7 +216,9 @@ class TimerDisplay extends Component {
 
 	format(){
 		console.log("formatter called");
-		if(this.state.minutes <10 && this.state.seconds <10){
+		if(this.state.minutes <10 && this.state.seconds === "00"){
+			this.setState({formattedTime: ("0"+ this.state.minutes+":"+this.state.seconds)});
+		} else if (this.state.minutes <10 && this.state.seconds <10){
 			this.setState({formattedTime: ("0"+ this.state.minutes+":0"+this.state.seconds)});
 		} else if ( this.state.minutes < 10 && this.state.seconds >=10){
 			this.setState({formattedTime: ("0" +this.state.minutes+":"+this.state.seconds)});
@@ -242,7 +244,7 @@ class TimerDisplay extends Component {
 					onChange={isFull => this.setState({isFull})}
 				>
 				<div  className= {this.state.isFull? ("isFull"):("centeredOnScreen") } style={{margin: "10px", backgroundColor: this.state.color}}>
-					<h1 className ={this.state.isFull?("textIsFull"):("none")}> {this.state.title}: {this.state.formattedTime}</h1>
+					<h1> {this.state.title}: {this.state.formattedTime}</h1>
           			<img src={Logo}  className={this.state.isFull?("App-logo-big"):("App-logo-small")} alt="logo" />
 				</div>
 				</Fullscreen>
