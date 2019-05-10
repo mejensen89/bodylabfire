@@ -45,13 +45,22 @@ class WorkoutList extends Component{
 	}
 
 	createWorkout(newWorkout){
-		this.WorkoutsRef.push({
-			Title: this.state.workoutTitle, // this wil be a string from an input
-			date: this.state.workoutDate, //this will be a date from an input
-			slides: this.props.slideQueue, //
-		});
-		this.setState({ newWorkout: ''});
-		alert("Workout submitted");
+		if(this.state.workoutTitle && this.state.workoutDate && this.state.workoutSlides){
+			this.WorkoutsRef.push({
+				Title: this.state.workoutTitle, // this wil be a string from an input
+				date: this.state.workoutDate, //this will be a date from an input
+				slides: this.props.slideQueue, //
+			}).then(()=> this.setState({
+				workoutTitle: '',
+				workoutDate: '',
+				workoutSlides: []
+			}));
+			alert("Workout submitted");
+		} else {
+			alert("Please fill out all fields before submitting")
+		}
+		
+		
 	}
 
 	catchWorkoutTitle(e){

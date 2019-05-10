@@ -101,25 +101,50 @@ class TimerDisplay extends Component {
 		this.setState({ isFull: true });
 	}	
 
+	format(){
+		let minutes = parseInt(this.state.totalSec/60);
+		let seconds = parseInt(this.state.totalSec%60)
+		console.log("formatter called");
+		if(minutes <10 && seconds === "00"){
+			this.setState({formattedTime: ("0"+ minutes+":"+seconds)});
+		} else if (minutes <10 && seconds <10){
+			this.setState({formattedTime: ("0"+ minutes+":0"+seconds)});
+		} else if ( minutes < 10 && seconds >=10){
+			this.setState({formattedTime: ("0" +minutes+":"+seconds)});
+		} else if (minutes >= 10 && seconds < 10){
+			this.setState({formattedTime: (minutes+":0"+seconds)});
+		} else if (minutes >= 10 && minutes >= 10){
+			this.setState({formattedTime: (minutes+":"+seconds)});
+		} else if (minutes === 0 && seconds === 0 && this.state.isRunning === false){
+			this.setState({formattedTime: "--:--"});
+		} else if (minutes <= 0 && seconds <=0 && this.state.isRunning === true){
+			this.setState({formattedTime: "--:--"})
+		} else {
+			this.setState({formattedTime: "something is wrong, very wrong. Tell Melvin"});
+		}
+	}
+
 	startWorkout(e){
-		this.setState({isRunning: !this.state.isRunning});
-		var oldMin = parseInt(this.state.minutes*60);
-			var oldSec = parseInt(this.state.seconds);
-			var totalSec = parseInt(oldMin)+parseInt(oldSec);
+		this.setState({
+			isRunning: !this.state.isRunning,
+		});
+		/*var oldMin = parseInt(this.state.minutes*60);
+		var oldSec = parseInt(this.state.seconds);
+		var totalSec = this.state.totalSec;*/
 		if (!this.props.currentWorkout.slides){
 			alert("We're glad you're ready to start your workout. Would you please load the workout you'd like to do first?");
 		} else if (this.props.currentWorkout.slides){
 			//this.format();			
-			var tock = setInterval(()=>{
-				
-				this.format();
-				console.log(totalSec, oldMin, oldSec);
-				var newMin = parseInt(totalSec/60);
-				var newSec= totalSec%60;
-				this.setState({
+			var tock = setInterval(()=>{				
+				//this.format();
+				console.log("tock")
+				//console.log(totalSec, oldMin, oldSec);
+				//var newMin = parseInt(this.state.totalSec/60);
+				//var newSec= parseInt(this.state.totalSec%60);
+				/*this.setState({
 					minutes: newMin,
 					seconds: newSec,
-				});
+				});*/
 				if (this.state.playList.length > this.props.currentWorkout.slides.length){
 					clearInterval(tock);
 					alert("Something went wrong. There are more slides loaded than are in this workout. Please tell the front desk");
@@ -141,12 +166,12 @@ class TimerDisplay extends Component {
 												color: this.props.slideList[x].color,
 												minutes: this.props.slideList[x].minutes,
 												seconds: this.props.slideList[x].seconds,
-												//totalSec: parseInt(parseInt(this.state.playList[0]*60)+this.state.playList[0].seconds)
+												totalSec: parseInt(parseInt(this.state.playList[0].minutes*60)+this.state.playList[0].seconds)
 											})
 											console.log("playlist loaded from slideList");
-											oldMin = this.props.slideList[x].minutes;
-											oldSec = this.props.slideList[x].seconds;
-											totalSec = parseInt(this.props.slideList[x].minutes*60)+parseInt(this.props.slideList[x].seconds-1)
+											//oldMin = this.props.slideList[x].minutes;
+											//oldSec = this.props.slideList[x].seconds;
+											//totalSec = parseInt(this.props.slideList[x].minutes*60)+parseInt(this.props.slideList[x].seconds-1)
 										}																			
 									}
 								}
@@ -156,25 +181,47 @@ class TimerDisplay extends Component {
 							let n = this.state.currentSlide+1;
 							let pl = this.state.playList;
 							if (this.state.nextSlide<= this.state.playList.length){
-								if (totalSec >= 0){
-									totalSec = totalSec-1;
-								} else if (totalSec < 0){
+								if (this.state.totalSec > 1){
+									// if there are total sec, count down by 1
+									let newTotal = this.state.totalSec-1
+									this.setState({
+										totalSec: newTotal,
+										minutes: parseInt(newTotal/60),
+										second: parseInt(newTotal%60),
+										title: pl[c-1].title,
+										color: pl[c-1].color
+									}, ()=>this.format())
+									
+									//totalSec = totalSec-1;
+								} else if (this.state.totalSec <= 1){
+									//next slide call									
 									this.setState({
 										title: pl[c].title,
 										color: pl[c].color,
 										minutes: pl[c].minutes,
 										seconds: pl[c].seconds,
-										lastSlide: this.state.lastSlide+1,
-										currentSlide: this.state.currentSlide+1,
+										lastSlide: c,
+										currentSlide: c+1,
 										nextSlide: n+1,
-									})
-									totalSec = parseInt(pl[c].minutes*60)+parseInt(pl[c].seconds-1)
+										totalSec: parseInt(pl[c].minutes*60)+parseInt(pl[c].seconds)
+									}, ()=>this.format());
+									console.log("Next Slide called")
+									//totalSec = parseInt(pl[c].minutes*60)+parseInt(pl[c].seconds-1);
+									//var newMin = parseInt(totalSec/60);
+									//var newSec= totalSec%60;
 								}
 							}else if(this.state.nextSlide>this.state.playList.length){
-								if(totalSec>= 0){
-									totalSec = totalSec-1
+								if(this.state.totalSec> 1){
+									let newTotal = this.state.totalSec-1
+									this.setState({
+										totalSec: newTotal,
+										minutes: parseInt(newTotal/60),
+										second: parseInt(newTotal%60)
+									}, ()=>this.format());
+									
+									//totalSec = totalSec-1
 									console.log("loop coundown call")
-								} else if (totalSec < 0){
+								} else if (this.state.totalSec <= 1){
 									if(this.state.loop === true){
 										this.setState({
 											title: pl[0].title,
@@ -183,9 +230,10 @@ class TimerDisplay extends Component {
 											seconds: pl[0].seconds,
 											lastSlide: 0,
 											currentSlide: 1,
-											nextSlide: 2
-										})
-										totalSec = parseInt(pl[0].minutes*60)+parseInt(pl[0].seconds-1)
+											nextSlide: 2,
+											totalSec: parseInt(pl[0].minutes*60)+parseInt(pl[0].seconds)
+										}, ()=>this.format());
+										//totalSec = parseInt(pl[0].minutes*60)+parseInt(pl[0].seconds-1)
 										console.log("loop reset call")
 									} else if (this.state.loop === false){
 										this.setState({title: "That's it for cardio today. Great job! Get ready to lift!"});
@@ -214,26 +262,7 @@ class TimerDisplay extends Component {
 			 
 	}
 
-	format(){
-		console.log("formatter called");
-		if(this.state.minutes <10 && this.state.seconds === "00"){
-			this.setState({formattedTime: ("0"+ this.state.minutes+":"+this.state.seconds)});
-		} else if (this.state.minutes <10 && this.state.seconds <10){
-			this.setState({formattedTime: ("0"+ this.state.minutes+":0"+this.state.seconds)});
-		} else if ( this.state.minutes < 10 && this.state.seconds >=10){
-			this.setState({formattedTime: ("0" +this.state.minutes+":"+this.state.seconds)});
-		} else if (this.state.minutes >= 10 && this.state.seconds < 10){
-			this.setState({formattedTime: (this.state.minutes+":0"+this.state.seconds)});
-		} else if (this.state.minutes >= 10 && this.state.minutes >= 10){
-			this.setState({formattedTime: (this.state.minutes+":"+this.state.seconds)});
-		} else if (this.state.minutes === 0 && this.state.seconds === 0 && this.state.isRunning === false){
-			this.setState({formattedTime: "--:--"});
-		} else if (this.state.minutes <= 0 && this.state.seconds <=0 && this.state.isRunning === true){
-			this.setState({formattedTime: "--:--"})
-		} else {
-			this.setState({formattedTime: "something is wrong, very wrong. Tell Melvin"});
-		}
-	}
+	
 
 
 	render(){

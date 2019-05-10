@@ -51,12 +51,12 @@ class Login extends Component {
                 <small>If you're having trouble logging in, please contact the admin</small>
               </div>
              <label for="exampleInputEmail1">Email address</label>
-             <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+             <input value={this.state.email} onChange={this.handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
             </div>
             
              <div >
             <label for="exampleInputPassword1">Password</label>
-            <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+            <input value={this.state.password} onChange={this.handleChange} type="password" name="password" classname="form-control" id="exampleInputPassword1" placeholder="Password" />
             </div>
             <button type="submit" onClick={this.login} >Login</button>
           </form>
